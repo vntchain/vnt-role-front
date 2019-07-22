@@ -1,0 +1,14 @@
+@import '../../components/base';
+
+.notLocker{
+  padding-top: 1rem;
+  text-align: center;
+  p{
+    margin-bottom: .6rem;
+    font-size: .2rem;
+    color: #333333;
+  }
+  a{
+    @include stylelessA;
+  }
+}

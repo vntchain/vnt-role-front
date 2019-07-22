@@ -1,0 +1,6 @@
+@import '../components/base';
+
+.super-list{
+  @include commonWidth;
+  padding: .3rem 0;
+}

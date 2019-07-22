@@ -1,0 +1,19 @@
+@import "../base";
+
+.banner{
+  width: 100%;
+  height: $bannerHeight;
+  background: linear-gradient(to right, $gradient-blue-dark, $gradient-blue-light);
+  &__cont{
+    @include commonWidth;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    h2{
+      font-size: .4rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "../components/base";
+
+.login{
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to right, $gradient-blue-dark, $gradient-blue-light);
+  background-image: url('../assets/images/bg_login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  &__head{
+    @include commonWidth;
+    height: .98rem;
+    display: flex;
+    align-items: flex-end;
+  }
+  &__container{
+    @include commonWidth;
+    padding: .4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__bg{
+      margin-bottom: .4rem;
+      width: 6.6rem;
+      height: 4.88rem;
+      background: url('../assets/images/pic_login.png') no-repeat center center;
+    }
+    &__title{
+      margin-bottom: .5rem;
+      line-height: .6rem;
+      font-size: .6rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    &__login{
+      @include stylelessA;
+      margin-bottom: .3rem;
+      width: 2.50rem;
+      height: .64rem;
+      line-height: .64rem;
+      border-radius: 6px;
+      background-image: linear-gradient( 90deg, rgb(7,196,248) 0%, rgb(43,239,251) 100%);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+      font-size: .16rem;
+      color: #ffffff;
+      text-align: center;
+      font-weight: 600;
+    }
+    &__download{
+      @include stylelessA;
+      line-height: .16rem;
+      font-size: .16rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+}

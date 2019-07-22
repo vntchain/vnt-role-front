@@ -1,0 +1,28 @@
+$headerHeight: .8rem;
+$bannerHeight: 3rem;
+
+$theme-blue: #3389ff;
+$gradient-blue-dark: #1956e2;
+$gradient-blue-light: #24d8fb;
+$border-gray: #ebebeb;
+$button-green: #4bc159;
+
+/* breakpoints */
+
+$bp-desktop: 12rem;
+
+@mixin commonWidth {
+  width: $bp-desktop;
+  margin: 0 auto;
+}
+
+@mixin stylelessA {
+  text-decoration: none;
+  cursor: pointer;
+  color: $theme-blue;
+}
+
+@mixin stylelessInput {
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,69 @@
+@import "../../components/base";
+
+.super-item{
+  margin-bottom: .2rem;
+  box-sizing: border-box;
+  padding: .3rem;
+  width: 100%;
+  display: flex;
+  border-radius: 4px;
+  background: #ffffff;
+  justify-content: space-between;
+  align-items: flex-end;
+  &__status{
+    margin-bottom: .3rem;
+    line-height: .18rem;
+    font-size: .18rem;
+    color: #333333;
+    font-weight: 600;
+  }
+  &__cont{
+    margin-bottom: .2rem;
+    font-size: .16rem;
+    label{
+      display: inline-block;
+      width: .8rem;
+      color: #666666;
+      margin-right: .15rem;
+    }
+    span{
+      margin-right: .2rem;
+      color: #333333;
+    }
+    a{
+      @include stylelessA;
+    }
+    input{
+      @include stylelessInput;
+      padding: 0 .2rem;
+      width: 4rem;
+      height: .44rem;
+      line-height: .44rem;
+      border-radius: 2px;
+      background: #f3f3f3;
+      box-sizing: border-box;
+      &::placeholder{
+        font-size: .14rem;
+        color: #999999;
+      }
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  &__button{
+    @include stylelessA;
+    width: 1.6rem;
+    height: .5rem;
+    line-height: .5rem;
+    border-radius: 6px;
+    text-align: center;
+    color: #ffffff;
+    &-blue{
+      background: $theme-blue;
+    }
+    &-green{
+      background: $button-green;
+    }
+  }
+}

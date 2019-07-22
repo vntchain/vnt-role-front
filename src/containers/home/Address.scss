@@ -1,0 +1,19 @@
+@import "../../components/base";
+
+.address{
+  @include commonWidth;
+  height: .8rem;
+  line-height: .8rem;
+  border-bottom: 1px solid $border-gray;
+  .icon{
+    margin-right: .1rem;
+    vertical-align: middle;
+  }
+  span{
+    margin-right: .25rem;
+    vertical-align: middle;
+  }
+  a{
+    @include stylelessA;
+  }
+}

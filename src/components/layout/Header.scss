@@ -1,0 +1,11 @@
+@import "../base";
+.header{
+  height: $headerHeight;
+  background-color: #ffffff;
+  &__cont{
+    @include commonWidth;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

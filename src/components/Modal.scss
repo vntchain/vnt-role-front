@@ -1,0 +1,60 @@
+@import "./base";
+
+.modal{
+  &__mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.7);
+    z-index: 99; 
+  }
+  &__main{
+    position: absolute;
+    padding: 0 .3rem;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 5rem;
+    min-height: 3rem;
+    background: #ffffff;
+    border-radius: 6px;
+    box-sizing: border-box;
+    &__header{
+      display: flex;
+      justify-content: space-between;
+      height: .6rem;
+      line-height: .6rem;
+      img{
+        cursor: pointer;
+      }
+    }
+    &__cont{
+      text-align: center
+    }
+    &__footer{
+      margin-bottom: .7rem;
+      text-align: center;
+      &__button{
+        @include stylelessA;
+        width: 1.6rem;
+        height: .5rem;
+        line-height: .5rem;
+        border-radius: 6px;
+        text-align: center;
+        color: #ffffff;
+        &-blue{
+          background: $theme-blue;
+        }
+        &-border{
+          background: #ffffff;
+          border: 1px solid $theme-blue;
+          color: $theme-blue;
+        }
+      }
+    }
+  }
+}
