@@ -4,7 +4,7 @@ import imgs from '../utils/imgs'
 
 import "./Modal.scss"
 
-export default function Modal(props) {
+function Modal(props) {
   const { title, cancelText, okText, onCancel, onOk, visible, children } = props
   const [isVisible, setIsVisible] = useState(visible) 
   const handleCancel = () => {
@@ -18,13 +18,18 @@ export default function Modal(props) {
   }
   useEffect(() => {
     setIsVisible(visible)
+    if (visible) {
+      window.document.body.style.overflowY = 'hidden'
+    } else {
+      window.document.body.style.overflowY = 'auto'
+    }
   }, [visible])
   return (
     <div className="modal" style={{display: isVisible ? 'block' : 'none'}}>
       <div className="modal__mask" onClick={handleClose} />
       <div className="modal__main">
         <div className="modal__main__header">
-          {title ? <h3>{title}</h3> : ''}
+          <h3>{title ? {title} : ''}</h3>
           <img onClick={handleClose} src={imgs.iconClose} alt="X"/>
         </div>
         <div className="modal__main__cont">{children}</div>
@@ -46,7 +51,6 @@ export default function Modal(props) {
     </div>
   )
 }
-
 Modal.propType = {
   title: PropTypes.string,
   cancelText: PropTypes.string,
@@ -54,3 +58,5 @@ Modal.propType = {
   onCancel: PropTypes.func,
   onOk: PropTypes.func
 }
+
+export default Modal

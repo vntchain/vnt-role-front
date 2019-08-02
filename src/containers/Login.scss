@@ -35,7 +35,7 @@
       font-weight: 600;
     }
     &__login{
-      @include stylelessA;
+      @include stylelessButton;
       margin-bottom: .3rem;
       width: 2.50rem;
       height: .64rem;
@@ -47,6 +47,9 @@
       color: #ffffff;
       text-align: center;
       font-weight: 600;
+      &:disabled{
+        opacity: .6;
+      }
     }
     &__download{
       @include stylelessA;

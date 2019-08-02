@@ -26,3 +26,8 @@ $bp-desktop: 12rem;
   border: none;
   outline: none;
 }
+
+@mixin stylelessButton {
+  border: none;
+  outline: none;
+}

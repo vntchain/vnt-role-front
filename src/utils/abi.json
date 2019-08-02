@@ -1,0 +1,171 @@
+[
+  {
+      "name":"registerWitness",
+      "inputs":[
+          {
+              "name":"nodeUrl",
+              "type":"bytes"
+          },
+          {
+              "name":"website",
+              "type":"bytes"
+          },
+          {
+              "name":"nodeName",
+              "type":"bytes"
+          },
+          {
+              "name":"binder",
+              "type":"address"
+          },
+          {
+              "name":"beneficiary",
+              "type":"address"
+          }
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"unregisterWitness",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"voteWitnesses",
+      "inputs":[
+          {
+              "name":"candidate",
+              "type":"address[]"
+          }
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"cancelVote",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"startProxy",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"stopProxy",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"cancelProxy",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"setProxy",
+      "inputs":[
+          {
+              "name":"proxy",
+              "type":"address"
+          }
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"$stake",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"unStake",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"$depositReward",
+      "inputs":[
+
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"$bindCandidate",
+      "inputs":[
+          {
+              "name":"candidate",
+              "type":"address"
+          },
+          {
+              "name":"beneficiary",
+              "type":"address"
+          }
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  },
+  {
+      "name":"unbindCandidate",
+      "inputs":[
+          {
+              "name":"candidate",
+              "type":"address"
+          },
+          {
+              "name":"beneficiary",
+              "type":"address"
+          }
+      ],
+      "outputs":[
+
+      ],
+      "type":"function"
+  }
+]

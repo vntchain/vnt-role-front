@@ -5,9 +5,13 @@ import './index.css';
 import App from './containers/App.jsx';
 import * as serviceWorker from './serviceWorker';
 
+import { Provider } from './components/Context'
+
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <Provider>
+      <App />
+    </Provider>
   </BrowserRouter>
 ), document.getElementById('root'));
 

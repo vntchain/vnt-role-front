@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import message from '../utils/message'
-
-const msg = new message()
+import { message } from 'antd'
 
 const Copier = React.forwardRef((props, ref) => {
   const { text } = props
   const handleCopy = () => {
     ref.current.select()
     document.execCommand('copy')
-    msg.tip('复制成功！')
+    message.success('复制成功！')
   }
   return (
     <Fragment>
