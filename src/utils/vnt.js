@@ -66,18 +66,66 @@ export const getCoinbase = () => {
   })
 }
 
-export const bindCandidate = payload => {
+export const bindCandidate = (payload, callback) => {
   const { candidate, beneficiary, addr } = payload
-  const tx = voteContract.$bindCandidate.sendTransaction(candidate,beneficiary,{ from: addr, value:1e25 })
-  console.log(tx) //eslint-disable-line
+  const data = voteContract.$bindCandidate.sendTransaction(candidate,beneficiary,{ from: addr, value:1e25 })
+  console.log(data) //eslint-disable-line
+  sendTx({...payload, data}, callback)
 }
 
 export const unBindCandidate = payload => {
   const { candidate, beneficiary, addr } = payload
-  const tx = voteContract.unbindCandidate.sendTransaction(candidate,beneficiary,{from: addr})
-  console.log(tx) //eslint-disable-line
+  const data = voteContract.unbindCandidate.sendTransaction(candidate,beneficiary,{from: addr})
+  console.log(data) //eslint-disable-line
+  sendTx({...payload, data}, callback)
 }
 
-export const sendTx = (tx, callback) => {
-  window.vnt.core.sendTransaction(tx, callback)
+//发送交易
+const sendTx = (payload, callback) => {
+  const { addr, data } = payload
+  const tx = {
+    from: addr,
+    to: '0x0000000000000000000000000000000000000009',
+    data: data,
+    value: 1e25
+  }
+  const gasPrice = getGasPrice()
+  const gas = getGas(tx)
+  window.vnt.core.sendTransaction({
+    ...tx,
+    gasPrice,
+    gas
+  }, callback)
+}
+
+// 估算油价
+const getGasPrice = () => {
+  return new Promise(resolve => {
+    window.vnt.core.getGasPrice((err, res) => {
+      if(err) {
+        message.error(err)
+      }
+      resolve(res)
+    })
+  })
+}
+// 估算耗油量
+const getGas = tx => {
+  return new Promise(resolve => {
+    window.vnt.core.estimateGas(
+      // {
+      //   from: sendAddr.addr,
+      //   to: '0x0000000000000000000000000000000000000009',
+      //   data: data,
+      //   value: funcName === txActions.stake ? inputData : 0
+      // },
+      tx,
+      (err, res) => {
+        if(err) {
+          message.error(err)
+        }
+        resolve(res)
+      }
+    )
+  })
 }
