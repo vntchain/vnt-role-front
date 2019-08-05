@@ -1,8 +1,9 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import Copier from '../../components/Copier'
 import { Consumer } from '../../components/Context'
 import { message } from 'antd'
 import { Modal } from 'antd'
+import { getBalance, toDecimal, bindCandidate } from '../../utils/vnt'
 
 import './Item.scss'
 
@@ -17,16 +18,14 @@ export default Consumer(function Item(props) {
     },
     setIsQuitModalVisible,
     // setIsBindModalVisible,
-    setBindObj
+    setBindObj,
+    addr
   } = props
   const defaultBindData = {
-    candidate: '',
-    beneficiary: ''
+    candidate: binder,
+    beneficiary: beneficiary
   }
   const [bindData, setBindData] = useState(defaultBindData)
-  useEffect(() => {
-    console.log(name) //eslint-disable-line
-  }, [])
   const handleQuit = () => {
     setIsQuitModalVisible(true)
     setBindObj(bindData)
@@ -37,14 +36,27 @@ export default Consumer(function Item(props) {
       return
     }
     // 判断金额是否大于100w vnt
-    // setIsBindModalVisible(true)
-    // setBindObj(bindData)
-    Modal.info({
-      title: '请确认操作',
-      content: (
-        <p>请在打开的VNT Wallet中签名确认！</p>
-      ),
-      onOk() {},
+    getBalance(addr).then(res => {
+      // if(toDecimal(res.result) > 1000000){
+      console.log(toDecimal(res.result)) //eslint-disable-line
+      if(toDecimal(res.result) == 0){
+        bindCandidate({
+          candidate: binder,
+          beneficiary,
+          addr
+        }, () => {
+          //确认发送交易
+          Modal.info({
+            title: '请确认操作',
+            content: (
+              <p>请在打开的VNT Wallet中签名确认！</p>
+            ),
+            onOk() {},
+          })
+        })
+      } else {
+        message.info('账户余额不足1000000 vnt！')
+      }
     })
   }
   return (

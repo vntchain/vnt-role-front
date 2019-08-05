@@ -10,20 +10,52 @@ vnt.setProvider(new vnt.providers.HttpProvider(rpc))
 
 const voteContract = vnt.core.contract(abi).at("0x0000000000000000000000000000000000000009");
 
-// const initFetch = (method, params) => {
-//   return {
-//     method: 'post',
-//     headers: new Headers({
-//         'Content-Type': 'application/json',
-//     }),
-//     body: JSON.stringify({
-//       jsonrpc: '2.0',
-//       method: method,
-//       params: params || [],
-//       id: 1
-//     })
-//   }
-// }
+const fetchPromise = (method, params) => {
+  return new Promise(resolve => {
+    fetch(rpc, {
+      method: 'post',
+      headers: new Headers({
+          'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        method: method,
+        params: params || [],
+        id: 1
+      })
+    }).then(res => {
+      return res.json()
+    })
+    .catch(error => message.error(error))
+    .then(response => resolve(response))
+  }) 
+}
+
+const createPromise = (funName, payload) => {
+  return new Promise(resolve => {
+    try {
+      payload ? 
+      window.vnt.core[funName](payload, 
+        (err, res) => {
+          if(err) {
+            message.error(err)
+            return
+          }
+          resolve(res)
+        })
+      : window.vnt.core[funName]((err, res) => {
+          if(err) {
+            message.error(err)
+            return
+          }
+          console.log(res) //eslint-disable-line
+          resolve(res)
+        })
+    } catch (e) {
+      message.error(e.message)
+    }
+  })
+}
 
 export const getAllCandidates = () => {
   // return fetch(rpc,initFetch('core_getAllCandidates'))
@@ -52,32 +84,36 @@ export const getAllCandidates = () => {
     }]})
 }
 
+//获取地址
 export const getCoinbase = () => {
-  return new Promise(resolve => {
-    window.vnt.core.getCoinbase((err, result) => {
-      if (err) {
-        console.log(err)//eslint-disable-line
-        message.error(err)
-      }
-      if (result) {
-        resolve(result)
-      }
-    })
-  })
+  return createPromise('getCoinbase')
+}
+
+//获取余额
+export const getBalance = addr => {
+  return fetchPromise('core_getBalance', [addr, 'latest'])
 }
 
 export const bindCandidate = (payload, callback) => {
-  const { candidate, beneficiary, addr } = payload
-  const data = voteContract.$bindCandidate.sendTransaction(candidate,beneficiary,{ from: addr, value:1e25 })
-  console.log(data) //eslint-disable-line
-  sendTx({...payload, data}, callback)
+  try {
+    const { candidate, beneficiary, addr } = payload
+    const data = voteContract.$bindCandidate.sendTransaction(candidate,beneficiary,{ from: addr, value:1e25 })
+    console.log(data) //eslint-disable-line
+    sendTx({...payload, data}, callback)
+  } catch (e) {
+    message.error(e.message)
+  }
 }
 
-export const unBindCandidate = payload => {
-  const { candidate, beneficiary, addr } = payload
-  const data = voteContract.unbindCandidate.sendTransaction(candidate,beneficiary,{from: addr})
-  console.log(data) //eslint-disable-line
-  sendTx({...payload, data}, callback)
+export const unBindCandidate = (payload, callback) => {
+  try {
+    const { candidate, beneficiary, addr } = payload
+    const data = voteContract.unbindCandidate.sendTransaction(candidate,beneficiary,{from: addr})
+    console.log(data) //eslint-disable-line
+    sendTx({...payload, data}, callback)
+  }  catch (e) {
+    message.error(e.message)
+  }
 }
 
 //发送交易
@@ -91,41 +127,44 @@ const sendTx = (payload, callback) => {
   }
   const gasPrice = getGasPrice()
   const gas = getGas(tx)
-  window.vnt.core.sendTransaction({
-    ...tx,
-    gasPrice,
-    gas
-  }, callback)
+  try {
+    window.vnt.core.sendTransaction({
+      ...tx,
+      gasPrice,
+      gas
+    }, callback)
+  } catch (e) {
+    message.error(e.message)
+  }
 }
 
 // 估算油价
 const getGasPrice = () => {
-  return new Promise(resolve => {
-    window.vnt.core.getGasPrice((err, res) => {
-      if(err) {
-        message.error(err)
-      }
-      resolve(res)
-    })
-  })
+  return createPromise('getGasPrice')
+  // return new Promise(resolve => {
+  //   window.vnt.core.getGasPrice((err, res) => {
+  //     if(err) {
+  //       message.error(err)
+  //     }
+  //     resolve(res)
+  //   })
+  // })
 }
 // 估算耗油量
 const getGas = tx => {
-  return new Promise(resolve => {
-    window.vnt.core.estimateGas(
-      // {
-      //   from: sendAddr.addr,
-      //   to: '0x0000000000000000000000000000000000000009',
-      //   data: data,
-      //   value: funcName === txActions.stake ? inputData : 0
-      // },
-      tx,
-      (err, res) => {
-        if(err) {
-          message.error(err)
-        }
-        resolve(res)
-      }
-    )
-  })
+  return createPromise('estimateGas', tx)
+  // return new Promise(resolve => {
+  //   window.vnt.core.estimateGas(
+  //     tx,
+  //     (err, res) => {
+  //       if(err) {
+  //         message.error(err)
+  //       }
+  //       resolve(res)
+  //     }
+  //   )
+  // })
 }
+
+
+export const toDecimal = vnt.toDecimal

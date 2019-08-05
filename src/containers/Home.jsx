@@ -43,7 +43,7 @@ export default Consumer(function Home(props){
       {candidates.length ? (
         <div className="super-list">
           {
-            candidates.map((candidate, ind) => <Item key={ind} candidate={candidate} />)
+            candidates.map((candidate, ind) => <Item key={ind} candidate={candidate} addr={addr} />)
           }
         </div>
       ) : <NotLocker />}
