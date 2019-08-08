@@ -60,11 +60,21 @@
     border-radius: 6px;
     text-align: center;
     color: #ffffff;
+    font-size: .16rem;
     &-blue{
       background: $theme-blue;
     }
     &-green{
+      border-color: $button-green;
       background: $button-green;
+      &:hover{
+        border-color: $button-green-light;
+        background: $button-green-light;
+      }
+      &:focus{
+        border-color: $button-green-light;
+        background: $button-green-light;
+      }
     }
   }
 }
