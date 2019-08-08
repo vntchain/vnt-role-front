@@ -16,7 +16,7 @@ export default Consumer(function Login(props){
       window.vnt.requestAuthorization((err, result) => {
         if (err) {
           console.log(err)//eslint-disable-line
-          message.error(err)
+          message.error(err.message)
         }
         if (result) {
           // localStorage.setItem('ROLE_IS_LOGIN', 'true')

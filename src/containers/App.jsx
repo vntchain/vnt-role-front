@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import paths from '../utils/paths'
-import { message } from 'antd'
+// import { message } from 'antd'
+import { logout, getNetworkUrl } from '../utils/vnt'
 
 import Auth from '../components/Auth.jsx'
 import Login from './Login.jsx'
@@ -13,18 +14,14 @@ function App(props) {
   const { setIsLogin } = props
   useEffect(() => {
     //监听插件登出
-    window.vnt.logout((err, result) => {
-      console.log(err, result)//eslint-disable-line
-      if (err) {
-        console.log(err)//eslint-disable-line
-        message.error(err)
-      }
-      if (result) {
-        // localStorage.setItem('ROLE_IS_LOGIN', 'false')
+    logout().then(res => {
+      if (res) {
         setIsLogin(false)
         props.history.push(paths.login)
       }
     })
+    //获取并监听网络变化
+    getNetworkUrl()
   },[])
   return (
     <Switch>

@@ -7,22 +7,23 @@ import Address from './home/Address'
 import NotLocker from './home/NotLocker'
 import Item from './home/Item'
 import Modal from '../components/Modal'
-import { getAllCandidates, getCoinbase } from '../utils/vnt'
-import { Consumer } from '../components/Context'
+import { getAllCandidates, getCoinbase, unBindCandidate } from '../utils/vnt'
+import { UpperCase } from '../utils/helpers'
 
 import './Home.scss'
 import bannerImg from '../assets/images/pic_banner.png'
 
-export default Consumer(function Home(props){
+export default function Home(props){
   console.log('home',props) //eslint-disable-line
-  const { isQuitModalVisible, setIsQuitModalVisible } = props
+  // const { isQuitModalVisible, setIsQuitModalVisible } = props
   const [addr, setAddr] = useState('')
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])
+  const [isQuitModalVisible, setIsQuitModalVisible] = useState(false)
+  const [bindObj, setBindObj] = useState({})
   useEffect(() => {
-    getCoinbase().then(res => setAddr(res))
+    getCoinbase().then(res => setAddr(res[0]))
     getAllCandidates().then(res => {
-      console.log('getAllCandidates', res) //eslint-disable-line
       if (res) {
         const result = res.result||[]
         setAllCandidates(result)
@@ -30,11 +31,14 @@ export default Consumer(function Home(props){
     })
   },[])
   useEffect(() => {
+    console.log(addr, allCandidates) //eslint-disable-line
     if(addr && allCandidates.length) {
-      setCandidates(allCandidates.filter(item => item.binder == addr))
+      setCandidates(allCandidates.filter(item => UpperCase(item.binder) == UpperCase(addr)))
     }
   }, [addr, allCandidates])
-  const handleQuit = () => {}
+  const handleQuit = () => {
+    unBindCandidate(bindObj)
+  }
   return (
     <div>
       <Header />
@@ -43,7 +47,15 @@ export default Consumer(function Home(props){
       {candidates.length ? (
         <div className="super-list">
           {
-            candidates.map((candidate, ind) => <Item key={ind} candidate={candidate} addr={addr} />)
+            candidates.map((candidate, ind) => (
+              <Item
+                key={ind}
+                candidate={candidate}
+                addr={addr}
+                setIsQuitModalVisible={setIsQuitModalVisible}
+                setBindObj={setBindObj}
+              />
+            ))
           }
         </div>
       ) : <NotLocker />}
@@ -57,4 +69,4 @@ export default Consumer(function Home(props){
       </Modal>
     </div>
   )
-})
+}

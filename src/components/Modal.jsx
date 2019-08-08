@@ -13,9 +13,6 @@ function Modal(props) {
   const handleOk = () => {
     onOk()
   }
-  const handleClose = () => {
-    setIsVisible(false)
-  }
   useEffect(() => {
     setIsVisible(visible)
     if (visible) {
@@ -26,11 +23,11 @@ function Modal(props) {
   }, [visible])
   return (
     <div className="modal" style={{display: isVisible ? 'block' : 'none'}}>
-      <div className="modal__mask" onClick={handleClose} />
+      <div className="modal__mask" onClick={handleCancel} />
       <div className="modal__main">
         <div className="modal__main__header">
           <h3>{title ? {title} : ''}</h3>
-          <img onClick={handleClose} src={imgs.iconClose} alt="X"/>
+          <img onClick={handleCancel} src={imgs.iconClose} alt="X"/>
         </div>
         <div className="modal__main__cont">{children}</div>
         <div className="modal__main__footer">
