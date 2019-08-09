@@ -12,15 +12,17 @@ import { Consumer } from '../components/Context'
 function App(props) {
   const { setIsLogin } = props
   useEffect(() => {
-    //监听插件登出
-    logout().then(res => {
-      if (res) {
-        setIsLogin(false)
-        props.history.push(paths.login)
-      }
-    })
-    //获取并监听网络变化
-    getNetworkUrl()
+    if (typeof window.vnt !== 'undefined') {
+      //监听插件登出
+      logout().then(res => {
+        if (res) {
+          setIsLogin(false)
+          props.history.push(paths.login)
+        }
+      })
+      //获取并监听网络变化
+      getNetworkUrl()
+    }
   },[])
   return (
     <Switch>

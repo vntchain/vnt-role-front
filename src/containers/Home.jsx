@@ -6,7 +6,7 @@ import Banner from '../components/layout/Banner'
 import Address from './home/Address'
 import NotLocker from './home/NotLocker'
 import Item from './home/Item'
-import { getAllCandidates, getCoinbase } from '../utils/vnt'
+import { getAllCandidates, getAccounts } from '../utils/vnt'
 import { UpperCase } from '../utils/helpers'
 
 import './Home.scss'
@@ -17,7 +17,7 @@ export default function Home(){
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])
   useEffect(() => {
-    getCoinbase().then(res => setAddr(res[0]))
+    getAccounts(res => setAddr(res[0]))
     getCandidates()
   },[])
   useEffect(() => {

@@ -29,7 +29,7 @@ const fetchPromise = (method, params) => {
   }) 
 }
 
-const createCorePromise = (funName, payload) => {
+const createCorePromise = (funName, payload, callback) => {
   return new Promise(resolve => {
     try {
       payload ? 
@@ -39,14 +39,14 @@ const createCorePromise = (funName, payload) => {
             message.error(err.message)
             return
           }
-          resolve(res)
+          callback ? callback() : resolve(res)
         })
       : window.vnt.core[funName]((err, res) => {
           if(err) {
             message.error(err.message)
             return
           }
-          resolve(res)
+          callback ? callback() : resolve(res)
         })
     } catch (e) {
       message.error(e.message)
@@ -74,10 +74,14 @@ const createPromise = (funName) => {
 export const getNetworkUrl = () => {
   // 获取插件网络&监听网络变换
   try {
-    window.vnt['getNetworkUrl']((err, res) => {
+    window.vnt.getNetworkUrl((err, res) => {
       if(err) {
         message.error(err)
         return
+      }
+      if(res.url) {
+        rpcObj= res
+        vnt.setProvider(new vnt.providers.HttpProvider(res.url))
       }
       if(res.url) {
         rpcObj= res
@@ -98,8 +102,18 @@ export const getAllCandidates = () => {
 }
 
 //获取地址
-export const getCoinbase = () => {
-  return createCorePromise('getAccounts')
+export const getAccounts = callback => {
+  try {
+    window.vnt.core.getAccounts((err, res) => {
+      if(err) {
+        message.error(err)
+        return
+      }
+      callback(res)
+    })
+  } catch (e) {
+    message.error(e.message)
+  }
 }
 
 //获取余额
