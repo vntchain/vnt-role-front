@@ -12,8 +12,7 @@ import { UpperCase } from '../utils/helpers'
 import './Home.scss'
 import bannerImg from '../assets/images/pic_banner.png'
 
-export default function Home(props){
-  console.log('home',props) //eslint-disable-line
+export default function Home(){
   const [addr, setAddr] = useState('')
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])

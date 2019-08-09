@@ -16,7 +16,7 @@ const Copier = React.forwardRef((props, ref) => {
         style={{
           position: 'absolute',
           right: '-4000px',
-          color: 'transparent'
+          color: 'transparent',
         }}
         value={text}
         readOnly

@@ -19,8 +19,8 @@ export default function Item(props) {
     addr,
     getCandidates
   } = props
-  const [bindCandidate, setBindCandidate] = useState(owner)
-  const [bindBeneficiary, setBindBeneficiary] = useState(beneficiary)
+  const [bindCandidate, setBindCandidate] = useState('')
+  const [bindBeneficiary, setBindBeneficiary] = useState('')
   // const [isItemLoading, setIsItemLoading] = useState(false)
   const [txId, setTxId] = useState('')
   useEffect(() => {

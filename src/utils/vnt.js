@@ -2,12 +2,9 @@ import VNT from 'vnt'
 import abi from './abi.json'
 import { message, Modal } from 'antd'
 
-let rpcObj = {
-  url: process.env.REACT_APP_RPC
-}
+let rpcObj = {}
 
 const vnt = new VNT()
-vnt.setProvider(new vnt.providers.HttpProvider(rpcObj.url))
 
 const contract = vnt.core.contract(abi);
 
@@ -82,9 +79,10 @@ export const getNetworkUrl = () => {
         message.error(err)
         return
       }
-      console.log(res) //eslint-disable-line
-      // rpcObj= res
-      //   vnt.setProvider(new vnt.providers.HttpProvider(res.url))
+      if(res.url) {
+        rpcObj= res
+        vnt.setProvider(new vnt.providers.HttpProvider(res.url))
+      }
     })
   } catch (e) {
     message.error(e.message)
@@ -117,7 +115,7 @@ export const sendTx = async (payload, callback) => {
     from: addr,
     to: '0x0000000000000000000000000000000000000009',
     data: data,
-    value: 1e25
+    value: funcName == '$bindCandidate' ? 1e25 : 0
   }
   const gasPrice = await getGasPrice().then(res => res.toString(10))
   const gas = await getGas(tx).then(res => res.toString(10))

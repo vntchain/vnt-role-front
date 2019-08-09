@@ -10,17 +10,13 @@ export default function Auth(WrappedComponent) {
     const { isLogin } = props
     const {location: { pathname }} = props
     //isLogin && pathname !== '/login' || !isLogin && pathname === '/login' => <WrappedComponent />
-    console.error(isLogin, pathname)//eslint-disable-line
     if (isLogin) {
       if (pathname === '/login'){
-        console.warn('redirect to home')//eslint-disable-line
         return <Redirect to={paths.home} />
       }
     } else if (pathname !== '/login') {
-      console.warn('redirect to login')//eslint-disable-line
       return <Redirect to={paths.login} />
     }
-    console.warn('render origin')//eslint-disable-line
     // eslint-disable-next-line react/display-name
     return <WrappedComponent {...props} />
   })

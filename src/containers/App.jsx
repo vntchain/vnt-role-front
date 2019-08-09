@@ -10,7 +10,6 @@ import Home from './Home.jsx'
 import { Consumer } from '../components/Context'
 
 function App(props) {
-  console.log('app') //eslint-disable-line
   const { setIsLogin } = props
   useEffect(() => {
     //监听插件登出

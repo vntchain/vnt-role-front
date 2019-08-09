@@ -12,9 +12,14 @@ $button-green-light: #79d181;
 
 $bp-desktop: 12rem;
 
+body {
+  min-width: $bp-desktop;
+}
 @mixin commonWidth {
+  position: relative;
   width: $bp-desktop;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 @mixin stylelessA {

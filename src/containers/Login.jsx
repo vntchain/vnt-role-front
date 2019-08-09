@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import paths from '../utils/paths'
 import imgs from '../utils/imgs'
 import { message } from 'antd'
@@ -8,8 +7,7 @@ import './Login.scss'
 import { Consumer } from '../components/Context'
 
 export default Consumer(function Login(props){
-  console.log(props)//eslint-disable-line
-  const { history, setIsLogin } = props
+  const { setIsLogin } = props
   const [isDisabled, setIsDisabled] = useState(false)
   const handleLogin = () => {
     if (typeof window.vnt !== 'undefined') {
@@ -20,8 +18,9 @@ export default Consumer(function Login(props){
         }
         if (result) {
           // localStorage.setItem('ROLE_IS_LOGIN', 'true')
+          //改变登录状态后auth自动跳转home
           setIsLogin(true)
-          history.push(paths.home)
+          // history.push(paths.home)
         }
       })
     } else {
@@ -45,7 +44,14 @@ export default Consumer(function Login(props){
         >
           登录VNT Wallet
         </button>
-        <Link className="login__container__download" to={paths.download}>下载VNT Wallet</Link>
+        <a
+          className="login__container__download"
+          href={paths.download}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          下载VNT Wallet
+        </a>
       </div>
     </div>
   )
