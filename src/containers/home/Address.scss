@@ -2,11 +2,11 @@
 
 .address{
   @include commonWidth;
+  display: flex;
   height: .8rem;
-  line-height: .8rem;
   border-bottom: 1px solid $border-gray;
-  box-sizing: content-box;
-  font-size: 0;
+  font-size: .16rem;
+  align-items: center;
   .icon{
     margin-right: .1rem;
     vertical-align: middle;
@@ -14,10 +14,8 @@
   span{
     margin-right: .25rem;
     vertical-align: middle;
-    font-size: .16rem;
   }
   a{
     @include stylelessA;
-    font-size: .16rem;
   }
 }
