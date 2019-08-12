@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import paths from '../utils/paths'
 // import { message } from 'antd'
-import { logout, getNetworkUrl } from '../utils/vnt'
+import { logout } from '../utils/vnt'
 
 import Auth from '../components/Auth.jsx'
 import Login from './Login.jsx'
@@ -20,8 +20,6 @@ function App(props) {
           props.history.push(paths.login)
         }
       })
-      //获取并监听网络变化
-      getNetworkUrl()
     }
   },[])
   return (

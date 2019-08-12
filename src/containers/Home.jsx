@@ -6,7 +6,7 @@ import Banner from '../components/layout/Banner'
 import Address from './home/Address'
 import NotLocker from './home/NotLocker'
 import Item from './home/Item'
-import { getAllCandidates, getAccounts } from '../utils/vnt'
+import { getAllCandidates, getAccounts, getNetworkUrl } from '../utils/vnt'
 import { UpperCase } from '../utils/helpers'
 
 import './Home.scss'
@@ -18,10 +18,13 @@ export default function Home(){
   const [allCandidates, setAllCandidates] = useState([])
   useEffect(() => {
     getAccounts(res => setAddr(res[0]))
-    getCandidates()
+    //获取并监听网络变化
+    getNetworkUrl(() => {
+      getCandidates()
+    })
   },[])
   useEffect(() => {
-    if(addr && allCandidates.length) {
+    if(addr) {
       setCandidates(allCandidates.filter(item => UpperCase(item.binder) == UpperCase(addr)))
     }
   }, [addr, allCandidates])

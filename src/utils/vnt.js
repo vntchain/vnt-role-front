@@ -71,21 +71,18 @@ const createPromise = (funName) => {
   })
 }
 
-export const getNetworkUrl = () => {
+export const getNetworkUrl = callback => {
   // 获取插件网络&监听网络变换
   try {
     window.vnt.getNetworkUrl((err, res) => {
       if(err) {
-        message.error(err)
+        message.error(err.message)
         return
       }
       if(res.url) {
         rpcObj= res
         vnt.setProvider(new vnt.providers.HttpProvider(res.url))
-      }
-      if(res.url) {
-        rpcObj= res
-        vnt.setProvider(new vnt.providers.HttpProvider(res.url))
+        callback()
       }
     })
   } catch (e) {
@@ -106,7 +103,7 @@ export const getAccounts = callback => {
   try {
     window.vnt.core.getAccounts((err, res) => {
       if(err) {
-        message.error(err)
+        message.error(err.message)
         return
       }
       callback(res)
