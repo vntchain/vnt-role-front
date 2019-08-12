@@ -119,7 +119,7 @@ export default function Item(props) {
   return (
     <div className="super-item">
       <div>
-        <p className="super-item__status">已锁仓</p>
+        <p className="super-item__status">{bind ? '已锁仓' : '未锁仓'}</p>
         <p className="super-item__cont">
           <label>节点名称：</label>
           <span>{name}</span>

@@ -7,7 +7,9 @@ export default function NotLocker() {
     <div className="notLocker">
       <img src={pic_no} alt="pic_no"/>
       <p>您还未被指定为锁仓人，请先注册超级节点！</p>
-      <a href="" target="_blank">如何加入VNT网络？</a>
+      <a href="https://scan.vntchain.io/developer/join" target="_blank" rel="noopener noreferrer">
+        如何加入VNT网络？
+      </a>
     </div>
   )
 }
