@@ -40,6 +40,9 @@ export default function Item(props) {
             title: '成功了！',
             content: '您的交易发送成功！'
           })
+          //清空绑定输入框
+          setBindCandidate('')
+          setBindBeneficiary('')
         } else {
           //交易失败
           Modal.destroyAll()
@@ -51,7 +54,6 @@ export default function Item(props) {
         // setIsItemLoading(false)
         //获取超级节点列表
         getCandidates()
-        console.log('receipt',receipt) //eslint-disable-line
       })
     }
   }, [txId])
