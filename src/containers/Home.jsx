@@ -17,7 +17,10 @@ export default function Home(){
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])
   useEffect(() => {
-    getAccounts(res => setAddr(res[0]))
+    getAccounts(res => {
+      setAddr(res[0])
+      getCandidates()
+    })
     //获取并监听网络变化
     getNetworkUrl(() => {
       getCandidates()
@@ -28,6 +31,7 @@ export default function Home(){
       setCandidates(allCandidates.filter(item => UpperCase(item.binder) == UpperCase(addr)))
     }
   }, [addr, allCandidates])
+  //获取节点列表
   const getCandidates = () => {
     getAllCandidates().then(res => {
       if (res) {
