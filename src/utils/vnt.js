@@ -71,7 +71,7 @@ const createPromise = (funName) => {
   })
 }
 
-export const getNetworkUrl = callback => {
+export const getNetworkUrl = () => {
   // 获取插件网络&监听网络变换
   try {
     window.vnt.getNetworkUrl((err, res) => {
@@ -82,7 +82,23 @@ export const getNetworkUrl = callback => {
       if(res.url) {
         rpcObj= res
         vnt.setProvider(new vnt.providers.HttpProvider(res.url))
-        callback()
+      }
+    })
+  } catch (e) {
+    message.error(e.message)
+  }
+}
+
+export const listenNetworkUrl = callback => {
+  // 获取插件网络&监听网络变换
+  try {
+    window.vnt.getNetworkUrl((err, res) => {
+      if(err) {
+        message.error(err.message)
+        return
+      }
+      if(res.url) {
+        if(callback && typeof(callback) == 'function') callback()
       }
     })
   } catch (e) {

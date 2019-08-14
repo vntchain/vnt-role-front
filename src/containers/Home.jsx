@@ -6,7 +6,7 @@ import Banner from '../components/layout/Banner'
 import Address from './home/Address'
 import NotLocker from './home/NotLocker'
 import Item from './home/Item'
-import { getAllCandidates, getAccounts, getNetworkUrl } from '../utils/vnt'
+import { getAllCandidates, getAccounts, listenNetworkUrl } from '../utils/vnt'
 import { UpperCase } from '../utils/helpers'
 
 import './Home.scss'
@@ -17,12 +17,12 @@ export default function Home(){
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])
   useEffect(() => {
+    console.log('home') //eslint-disable-line
     getAccounts(res => {
       setAddr(res[0])
       getCandidates()
     })
-    //获取并监听网络变化
-    getNetworkUrl(() => {
+    listenNetworkUrl(() => {
       getCandidates()
     })
   },[])

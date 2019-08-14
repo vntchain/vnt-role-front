@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import paths from '../utils/paths'
 // import { message } from 'antd'
-import { logout } from '../utils/vnt'
+import { logout, getNetworkUrl } from '../utils/vnt'
 
 import Auth from '../components/Auth.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 import { Consumer } from '../components/Context'
+// import withRef from '../components/withRef'
 
 function App(props) {
   const { setIsLogin } = props
@@ -20,12 +21,14 @@ function App(props) {
           props.history.push(paths.login)
         }
       })
+      //获取并监听网络变化
+      getNetworkUrl()
     }
   },[])
   return (
     <Switch>
       <Route exact path={paths.login} component={Auth(Login)} />
-      <Route exact path={paths.home} component={Auth(Home)} />
+      <Route exact path={paths.home} component={Auth(() => <Home />)} />
     </Switch>
   );
 }
