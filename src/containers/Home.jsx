@@ -17,13 +17,14 @@ export default function Home(){
   const [candidates, setCandidates] = useState([])
   const [allCandidates, setAllCandidates] = useState([])
   useEffect(() => {
-    console.log('home') //eslint-disable-line
     getAccounts(res => {
       setAddr(res[0])
       getCandidates()
     })
-    listenNetworkUrl(() => {
-      getCandidates()
+    listenNetworkUrl(res => {
+      if (res.url) {
+        getCandidates()
+      }
     })
   },[])
   useEffect(() => {

@@ -55,20 +55,34 @@ const createCorePromise = (funName, payload, callback) => {
 }
 
 
-const createPromise = (funName) => {
-  return new Promise(resolve => {
-    try {
-      window.vnt[funName]((err, res) => {
-        if(err) {
-          message.error(err.message)
-          return
-        }
-        resolve(res)
-      })
-    } catch (e) {
-      message.error(e.message)
-    }
-  })
+// const createPromise = funName => {
+//   return new Promise(resolve => {
+//     try {
+//       window.vnt[funName]((err, res) => {
+//         if(err) {
+//           message.error(err.message)
+//           return
+//         }
+//         resolve(res)
+//       })
+//     } catch (e) {
+//       message.error(e.message)
+//     }
+//   })
+// }
+
+const createVntCallback = (funName, callback) => {
+  try {
+    window.vnt[funName]((err, res) => {
+      if(err) {
+        message.error(err.message)
+        return
+      }
+      if(callback && typeof(callback) == 'function') callback(res)
+    })
+  } catch (e) {
+    message.error(e.message)
+  }
 }
 
 export const getNetworkUrl = () => {
@@ -91,23 +105,12 @@ export const getNetworkUrl = () => {
 
 export const listenNetworkUrl = callback => {
   // 获取插件网络&监听网络变换
-  try {
-    window.vnt.getNetworkUrl((err, res) => {
-      if(err) {
-        message.error(err.message)
-        return
-      }
-      if(res.url) {
-        if(callback && typeof(callback) == 'function') callback()
-      }
-    })
-  } catch (e) {
-    message.error(e.message)
-  }
+  createVntCallback('getNetworkUrl', callback)
 }
 
-export const logout = () => {
-  return createPromise('logout')
+export const logout = callback => {
+  createVntCallback('logout', callback)
+  // return createPromise('logout')
 }
 
 export const getAllCandidates = () => {
