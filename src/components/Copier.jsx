@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { message } from 'antd'
 
 const Copier = React.forwardRef((props, ref) => {
-  const { text } = props
+  const { text, sucessTip } = props
   const handleCopy = () => {
     ref.current.select()
     document.execCommand('copy')
-    message.success('复制成功！')
+    message.success(sucessTip || '复制成功！')
   }
   return (
     <Fragment>
@@ -30,7 +30,8 @@ const Copier = React.forwardRef((props, ref) => {
 
 Copier.propType = {
   text: PropTypes.string.isRequired,
-  ref: PropTypes.object.isRequired
+  ref: PropTypes.object.isRequired,
+  sucessTip: PropTypes.string
 }
 
 export default Copier
