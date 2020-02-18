@@ -5,12 +5,12 @@ export const Context = React.createContext({
 })
 
 export const Provider = function(props){
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   return (
     <Context.Provider
       value={{
         isLogin,
-        setIsLogin,
+        setIsLogin
       }}
     >
       {props.children}
