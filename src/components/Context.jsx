@@ -5,7 +5,7 @@ export const Context = React.createContext({
 })
 
 export const Provider = function(props){
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   return (
     <Context.Provider
       value={{

@@ -26,13 +26,13 @@ export default {
   send_message: '正在向链上发送交易，请耐心等待...',
   send_sucess_title: '成功了！',
   send_sucess_message: '您的交易发送成功！',
-  send_error_title: '失败了',
+  send_error_title: '失败了！',
   send_error_message: '您的交易失败了！',
-  send_reject_title: '失败了',
+  send_reject_title: '失败了！',
   send_reject_message: '您在VNT Wallet中拒绝了这次签名请求！',
   unbind_title: '确认退出？',
   unbind_message: '退出锁仓将注销超级节点，不再获取出块奖励',
   bind_info_error: '信息不匹配！',
   bind_vnt_error: '账户余额不足1000000 vnt！',
-  copy_sucess: '复制成功'
+  copy_sucess: '复制成功！'
 }
