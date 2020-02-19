@@ -1,20 +1,25 @@
 import React from 'react'
+import { withLang } from '@translate'
 import imgs from '../../utils/imgs'
 import './Address.scss'
 
 import Copier from '../../components/Copier'
 
-export default function Address(props){
+export default withLang(function Address(props){
   const copyRef = React.createRef()
-  const { addr } = props
+  const { addr, localText } = props
   return (
     <div className="address">
       <img className="icon" src={imgs.iconWallet} alt="wallet"/>
-      <span>我的地址：</span>
+      <span>
+        {localText.home_address}
+      </span>
       <span>{addr}</span>
-      <Copier text={addr} ref={copyRef}>
-        <a href="javascript:">复制</a>
+      <Copier text={addr} ref={copyRef} sucessTip={localText.copy_sucess}>
+        <a href="javascript:">
+          {localText.home_copy}
+        </a>
       </Copier>
     </div>
   )
-}
+})

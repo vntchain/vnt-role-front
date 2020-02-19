@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 
 export const Context = React.createContext({
   isLogin: false,
-  // isQuitModalVisible: false,
-  // bindObj: {}
 })
 
 export const Provider = function(props){

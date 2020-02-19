@@ -4,10 +4,11 @@ import { message } from 'antd'
 import { Modal, Button } from 'antd'
 import { getBalance, toDecimal, sendTx } from '../../utils/vnt'
 import { UpperCase } from '../../utils/helpers'
+import { withLang } from '@translate'
 
 import './Item.scss'
 
-export default function Item(props) {
+export default withLang(function Item(props) {
   const copyRef = React.createRef()
   const {
     candidate: {
@@ -17,7 +18,8 @@ export default function Item(props) {
       bind
     },
     addr,
-    getCandidates
+    getCandidates,
+    localText
   } = props
   const [bindCandidate, setBindCandidate] = useState('')
   const [bindBeneficiary, setBindBeneficiary] = useState('')
@@ -28,8 +30,8 @@ export default function Item(props) {
       //提示交易发送中
       Modal.destroyAll()
       Modal.info({
-        title: '正在发送...',
-        content: '正在向链上发送交易，请耐心等待...'
+        title: localText.send_title,
+        content: localText.send_message
       })
       //获取到txId后监听交易变化
       getTransactionReceipt(txId, receipt =>{
@@ -37,8 +39,8 @@ export default function Item(props) {
           //交易成功
           Modal.destroyAll()
           Modal.info({
-            title: '成功了！',
-            content: '您的交易发送成功！'
+            title: localText.send_sucess_title,
+            content: localText.send_sucess_message
           })
           //清空绑定输入框
           setBindCandidate('')
@@ -47,8 +49,8 @@ export default function Item(props) {
           //交易失败
           Modal.destroyAll()
           Modal.info({
-            title: '失败了',
-            content: '您的交易失败了！'
+            title: localText.send_error_title,
+            content: localText.send_error_message
           })
         }
         // setIsItemLoading(false)
@@ -76,8 +78,8 @@ export default function Item(props) {
       Modal.destroyAll()
       //确认发送交易提醒
       Modal.info({
-        title: '失败了',
-        content: '您在VNT Wallet中拒绝了这次签名请求！'
+        title: localText.send_reject_title,
+        content: localText.send_reject_message
       })
     } else {
       setTxId(res)
@@ -87,8 +89,8 @@ export default function Item(props) {
   }
   const handleUnBind = () => {
     Modal.confirm({
-      title: '确认退出？',
-      content: '退出锁仓将注销超级节点，不再获取出块奖励',
+      title: localText.unbind_title,
+      content: localText.unbind_message,
       onOk(){
         sendTx({
           funcName: 'unbindCandidate',
@@ -101,7 +103,7 @@ export default function Item(props) {
   }
   const handleBind = () => {
     if (UpperCase(bindCandidate) != UpperCase(owner) || UpperCase(bindBeneficiary) != UpperCase(beneficiary)) {
-      message.info('信息不匹配！')
+      message.info(localText.bind_info_error)
       return
     }
     // 判断金额是否大于1000w vnt
@@ -114,48 +116,50 @@ export default function Item(props) {
         }, sendTxCallback)
         // bindCandidate({ ...bindData, addr }, sendTxCallback)
       } else {
-        message.info('账户余额不足1000000 vnt！')
+        message.info(localText.bind_vnt_error)
       }
     })
   }
   return (
     <div className="super-item">
       <div>
-        <p className="super-item__status">{bind ? '已锁仓' : '未锁仓'}</p>
+        <p className="super-item__status">
+          {bind ? localText.node_status_lock : localText.node_status_notlock}
+        </p>
         <p className="super-item__cont">
-          <label>节点名称：</label>
+          <label>{localText.node_name}</label>
           <span>{name}</span>
         </p>
         <p className="super-item__cont">
-          <label>节点地址：</label>
+          <label>{localText.node_address}</label>
           <span>{owner}</span>
-          <Copier ref={copyRef} text={owner}>
-            <a href="javascript:">复制</a>
+          <Copier ref={copyRef} text={owner} sucessTip={localText.copy_sucess}>
+            <a href="javascript:">{localText.node_copy}</a>
           </Copier>
         </p>
         {bind ? (
           //已锁仓
           <p className="super-item__cont">
-            <label>受益人：</label>
+            <label>{localText.node_benifit}</label>
             <span>{beneficiary}</span>
           </p>
         ) : (
           //未锁仓
           <Fragment>
             <p className="super-item__cont">
-              <label>节点地址：</label>
+              <label>{localText.node_address}</label>
               <input
                 type="text"
-                placeholder="请确认节点地址"
+                placeholder={localText.node_address_placeholder}
                 value={bindCandidate}
                 onChange={val => setBindCandidate(val.target.value)}
               />
             </p>
             <p className="super-item__cont">
-              <label>受益人：</label>
+              <label>{localText.node_benifit}</label>
               <input
                 type="text"
-                placeholder="请输入受益人地址"
+                placeholder={localText.node_benifit_placeholder}
                 value={bindBeneficiary}
                 onChange={val => setBindBeneficiary(val.target.value)}
               />
@@ -172,7 +176,7 @@ export default function Item(props) {
             className="super-item__button super-item__button-blue"
             onClick={handleUnBind}
           >
-            退出锁仓
+            {localText.node_lock_quit}
           </Button>
         ) : (
           // {/* 未锁仓 */}
@@ -182,10 +186,10 @@ export default function Item(props) {
             className="super-item__button super-item__button-green"
             onClick={handleBind}
           >
-            锁仓1000万 VNT
+            {localText.node_lock_button}
           </Button>
         )
       }
     </div>
   )
-}
+})

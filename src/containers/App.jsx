@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import paths from '../utils/paths'
-// import { message } from 'antd'
 import { logout, getNetworkUrl } from '../utils/vnt'
+import { LangProvider } from '@translate'
 
 import Auth from '../components/Auth.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 import { Consumer } from '../components/Context'
-// import withRef from '../components/withRef'
 
 function App(props) {
   const { setIsLogin } = props
@@ -27,10 +26,12 @@ function App(props) {
     }
   },[])
   return (
-    <Switch>
-      <Route exact path={paths.login} component={Auth(Login)} />
-      <Route exact path={paths.home} component={Auth(() => <Home />)} />
-    </Switch>
+    <LangProvider>
+      <Switch>
+        <Route exact path={paths.login} component={Auth(Login)} />
+        <Route exact path={paths.home} component={Auth(() => <Home />)} />
+      </Switch>
+    </LangProvider>
   );
 }
 

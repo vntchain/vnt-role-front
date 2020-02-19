@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { FormattedMessage } from '@translate'
 
 import Header from '../components/layout/Header'
 import Banner from '../components/layout/Banner'
@@ -44,7 +45,7 @@ export default function Home(){
   return (
     <div>
       <Header />
-      <Banner title="VNT超级节点锁仓" image={bannerImg} />
+      <Banner title={<FormattedMessage id="banner_title" />} image={bannerImg} />
       <Address addr={addr} />
       {candidates.length ? (
         <div className="super-list">
