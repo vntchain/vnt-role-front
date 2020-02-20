@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
+import { Router } from 'react-router'
+import { createBrowserHistory } from 'history'
 import paths from '../utils/paths'
 import { logout, getNetworkUrl } from '../utils/vnt'
 import { LangProvider } from '@translate'
+import { getUrlLang } from '../utils/helpers'
 
 import Auth from '../components/Auth.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 import { Consumer } from '../components/Context'
+
+const browserHistory = createBrowserHistory() 
 
 function App(props) {
   const { setIsLogin } = props
@@ -25,12 +30,14 @@ function App(props) {
       getNetworkUrl()
     }
   },[])
+
+  
   return (
-    <LangProvider>
-      <Switch>
+    <LangProvider lang={getUrlLang()}>
+      <Router history={browserHistory}>
         <Route exact path={paths.login} component={Auth(Login)} />
         <Route exact path={paths.home} component={Auth(() => <Home />)} />
-      </Switch>
+      </Router>
     </LangProvider>
   );
 }

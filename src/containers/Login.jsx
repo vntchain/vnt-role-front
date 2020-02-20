@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import paths from '../utils/paths'
 import imgs from '../utils/imgs'
 import { message } from 'antd'
+import SwitchLanguage from '../components/SwitchLanguage'
 import './Login.scss'
 import { withLang } from '@translate'
 
@@ -33,6 +34,7 @@ export default Consumer(withLang(function Login(props){
     <div className="login">
       <header className="login__head">
         <img src={imgs.logoWhite} alt="logo"/>
+        <SwitchLanguage contentClassName={'login__head__switcher'} />
       </header>
       <div className="login__container">
         <div className="login__container__bg" />
@@ -41,7 +43,6 @@ export default Consumer(withLang(function Login(props){
         </h2>
         <button
           className="login__container__login"
-          href="javascript:;"
           onClick={handleLogin}
           disabled={isDisabled}
         >

@@ -1,11 +1,14 @@
-import React from 'react'
-import { Select } from 'antd'
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Icon, Dropdown, Menu} from 'antd'
 import { LangConsumer } from '@translate'
-// import styles from './SwitchLanguage.scss'
+import { getQueryStringParams, urlParamsToString } from '../utils/helpers'
+import './SwitchLanguage.scss'
 
-const Option = Select.Option
 
-function SwitchLanguage() {
+function SwitchLanguage(props) {
+  const [isDropDownVisible, setIsDropDownVisible] = useState(false)
+  const { contentClassName, history } = props
   const langOptions = {
     zh: '中文',
     en: 'English'
@@ -13,40 +16,50 @@ function SwitchLanguage() {
   return (
     <LangConsumer>
       {({ lang, changeLang }) => {
-        const handleSelectChange = val => {
-          if (val !== lang) {
+        const handleMenuClick = val => {
+          const selectedLangValue = val.key
+          if (selectedLangValue !== lang) {
+            setIsDropDownVisible(false)
             changeLang()
+            const qs = getQueryStringParams(window.location.search)
+            qs.language = selectedLangValue;
+            const searchStr = urlParamsToString(qs);
+            history.replace(`${window.location.pathname}${searchStr}`);
           }
         }
-        return (
-          <div>
-            <Select
-              value={langOptions[lang]}
-              onChange={handleSelectChange}
-              style={{color: 'red'}}
-            >
-              {Object.keys(langOptions).map(key => (
-                <Option key={key}>{langOptions[key]}</Option>
-              ))}
-            </Select>
-            {/* <div className={styles.select}>
-              <span>{langOptions[lang]}</span>
-              <Icon type="down" />
-            </div>
-            <ul className={styles.options}>
+        const LangMenu = () => {
+          return (
+            <Menu onClick={handleMenuClick}>
               {
                 Object.keys(langOptions).map(key => (
-                  <li key={key} onClick={() => handleSelectClick(key)}>
-                    {langOptions[key]}
-                  </li>
+                  <Menu.Item key={key}>
+                    <span>{langOptions[key]}</span>
+                  </Menu.Item>
                 ))
               }
-            </ul> */}
-          </div>
+            </Menu>
+          )
+        }
+        const handleVisibleChange = flag => {
+          setIsDropDownVisible(flag)
+        }
+        return (
+          <Dropdown
+            overlay={<LangMenu handleMenuClick={handleMenuClick} />}
+            overlayClassName={'lang__menu'}
+            visible={isDropDownVisible}
+            onVisibleChange={handleVisibleChange}
+            placement="bottomCenter"
+          >
+            <span className={`lang__dropdown ${contentClassName}`}>
+              {langOptions[lang]}
+              <Icon type="down" />
+            </span>
+          </Dropdown>
         )
       }}
     </LangConsumer>
   )
 }
 
-export default SwitchLanguage
+export default withRouter(SwitchLanguage)

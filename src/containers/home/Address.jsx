@@ -16,7 +16,7 @@ export default withLang(function Address(props){
       </span>
       <span>{addr}</span>
       <Copier text={addr} ref={copyRef} sucessTip={localText.copy_sucess}>
-        <a href="javascript:">
+        <a>
           {localText.home_copy}
         </a>
       </Copier>

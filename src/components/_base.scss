@@ -37,3 +37,11 @@ body {
   border: none;
   outline: none;
 }
+
+@mixin stylelessUl {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}

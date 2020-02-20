@@ -14,6 +14,11 @@
     height: .98rem;
     display: flex;
     align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    &__switcher{
+      color: #ffffff;
+    }
   }
   &__container{
     @include commonWidth;

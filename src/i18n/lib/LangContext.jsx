@@ -11,7 +11,7 @@ const LangContext = React.createContext({
 })
 
 export const LangProvider = props => {
-  const [lang, setLang] = useState(langOptions.chinese)
+  const [lang, setLang] = useState(props.lang || langOptions.chinese)
   const changeLang = () => {
     const l = lang === langOptions.chinese ? langOptions.english : langOptions.chinese
     setLang(l)
