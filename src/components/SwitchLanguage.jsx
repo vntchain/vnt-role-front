@@ -2,17 +2,14 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Icon, Dropdown, Menu} from 'antd'
 import { LangConsumer } from '@translate'
+import { langOptions } from '../constants'
 import { getQueryStringParams, urlParamsToString } from '../utils/helpers'
 import './SwitchLanguage.scss'
-
 
 function SwitchLanguage(props) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false)
   const { contentClassName, history } = props
-  const langOptions = {
-    zh: '中文',
-    en: 'English'
-  }
+  
   return (
     <LangConsumer>
       {({ lang, changeLang }) => {

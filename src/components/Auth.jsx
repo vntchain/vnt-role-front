@@ -9,7 +9,6 @@ export default function Auth(WrappedComponent) {
   // eslint-disable-next-line react/display-name
   return Consumer(props => {
     const { isLogin } = props
-    console.log(props) //eslint-disable-line
     const {location: { pathname }} = props
     //isLogin && pathname !== '/login' || !isLogin && pathname === '/login' => <WrappedComponent />
     if (isLogin) {

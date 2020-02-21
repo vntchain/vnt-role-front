@@ -20,7 +20,6 @@ function App(props) {
     if (typeof window.vnt !== 'undefined') {
       //监听插件登出
       logout(res => {
-        console.log('logout', res) //eslint-disable-line
         if (res) {
           setIsLogin(false)
           props.history.push(paths.login)

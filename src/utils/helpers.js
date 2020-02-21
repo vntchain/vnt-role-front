@@ -1,3 +1,5 @@
+import { langOptions } from '../constants'
+
 export const UpperCase = str => {
   return str.toUpperCase()
 }
@@ -21,10 +23,14 @@ export function urlParamsToString(params) {
 }
 
 export const getUrlLang = () => {
-  return window.location.search ? getQueryStringParams(window.location.search)['language'] : null
+  if (!window.location.search) return null
+  const lang = getQueryStringParams(window.location.search)['language']
+  const langArr = Object.keys(langOptions)
+  return lang && langArr.includes(lang) ? lang : null
 }
 
 export const addLanguageUrl = path => {
   const lang = getUrlLang()
+  console.warn(lang) //eslint-disable-line
   return lang ? `${path}?language=${lang}` : path
 }
