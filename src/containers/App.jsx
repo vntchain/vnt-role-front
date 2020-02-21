@@ -33,7 +33,7 @@ function App(props) {
 
   
   return (
-    <LangProvider lang={getUrlLang()}>
+    <LangProvider lang={getUrlLang() || navigator.languages[1]}>
       <Router history={browserHistory}>
         <Route exact path={paths.login} component={Auth(Login)} />
         <Route exact path={paths.home} component={Auth(() => <Home />)} />
