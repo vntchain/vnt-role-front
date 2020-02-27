@@ -139,22 +139,22 @@ export const getBalance = addr => {
 
 //发送交易
 export const sendTx = async (payload, callback) => {
-  const { funcName, inputData, addr } = payload
-  const data = await inputData ? contract.packFunctionData(funcName, inputData) : contract.packFunctionData(funcName)
-  const tx = {
-    from: addr,
-    to: '0x0000000000000000000000000000000000000009',
-    data: data,
-    value: funcName == '$bindCandidate' ? 1e25 : 0
-  }
-  const gasPrice = await getGasPrice().then(res => res.toString(10))
-  const gas = await getGas(tx).then(res => res.toString(10))
-  //确认发送交易提醒
-  Modal.info({
-    title: '请确认操作',
-    content: '请在打开的VNT Wallet中签名确认！',
-  })
   try {
+    const { funcName, inputData, addr, localText } = payload
+    const data = await inputData ? contract.packFunctionData(funcName, inputData) : contract.packFunctionData(funcName)
+    const tx = {
+      from: addr,
+      to: '0x0000000000000000000000000000000000000009',
+      data: data,
+      value: funcName == '$bindCandidate' ? 1e25 : 0
+    }
+    const gasPrice = await getGasPrice().then(res => res.toString(10))
+    const gas = await getGas(tx).then(res => res.toString(10))
+    //确认发送交易提醒
+    Modal.info({
+      title: localText.send_check_title,
+      content: localText.send_check_message,
+    })
     window.vnt.core.sendTransaction({
       ...tx,
       gasPrice,

@@ -13,7 +13,7 @@ export default {
   node_status_lock: 'Locked',
   node_status_notlock: 'Unlocked',
   node_name: 'Node Name:',
-  node_address: 'Node Address',
+  node_address: 'Node Address:',
   node_address_placeholder: 'Please confirm node address',
   node_copy: 'Copy',
   node_benifit: 'Beneficiary:',
@@ -34,5 +34,7 @@ export default {
   unbind_message: 'Exiting the staking will cancel the super node and no longer get block rewards',
   bind_info_error: 'Information does not match!',
   bind_vnt_error: 'Account balance is less than 10 million VNT!',
-  copy_sucess: 'Copy succeeded!'
+  copy_sucess: 'Copy succeeded!',
+  send_check_title: 'Please confirm the operation',
+  send_check_message: 'Please confirm in the opened VNT Wallet !'
 }

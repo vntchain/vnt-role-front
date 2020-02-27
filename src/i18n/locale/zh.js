@@ -34,5 +34,7 @@ export default {
   unbind_message: '退出锁仓将注销超级节点，不再获取出块奖励',
   bind_info_error: '信息不匹配！',
   bind_vnt_error: '账户余额不足1000000 vnt！',
-  copy_sucess: '复制成功！'
+  copy_sucess: '复制成功！',
+  send_check_title: '请确认操作',
+  send_check_message: '请在打开的VNT Wallet中签名确认！'
 }

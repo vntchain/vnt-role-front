@@ -23,7 +23,7 @@
     font-size: .16rem;
     label{
       display: inline-block;
-      width: .8rem;
+      width: 1.1rem;
       color: #666666;
       margin-right: .15rem;
     }
@@ -54,7 +54,7 @@
   }
   &__button{
     @include stylelessA;
-    width: 1.6rem;
+    width: 1.8rem;
     height: .5rem;
     line-height: .5rem;
     border-radius: 6px;

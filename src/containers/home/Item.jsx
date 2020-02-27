@@ -95,7 +95,8 @@ export default withLang(function Item(props) {
         sendTx({
           funcName: 'unbindCandidate',
           inputData: [owner, beneficiary],
-          addr
+          addr,
+          localText
         }, sendTxCallback)
       },
       onCancel(){}
@@ -112,9 +113,10 @@ export default withLang(function Item(props) {
         sendTx({
           funcName: '$bindCandidate',
           inputData: [bindCandidate, bindBeneficiary],
-          addr
+          addr,
+          localText
         }, sendTxCallback)
-        // bindCandidate({ ...bindData, addr }, sendTxCallback)
+        // bindCandidate({ ...bindData, addr }, sendTxCallback) 
       } else {
         message.info(localText.bind_vnt_error)
       }
