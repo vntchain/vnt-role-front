@@ -19,6 +19,7 @@ body {
   font-size: .16rem;
   color: #333333;
   background-color: #f8fafc;
+  min-width: 1200px;
 }
 
 code {
