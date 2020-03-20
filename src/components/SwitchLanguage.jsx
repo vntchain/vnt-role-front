@@ -13,6 +13,8 @@ function SwitchLanguage(props) {
   return (
     <LangConsumer>
       {({ lang, changeLang }) => {
+        document.title = lang === 'zh' ? 'VNT超级节点锁仓' : 'VNT Super Node Staking'
+
         const handleMenuClick = val => {
           const selectedLangValue = val.key
           if (selectedLangValue !== lang) {
